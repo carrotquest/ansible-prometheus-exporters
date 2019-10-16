@@ -1,0 +1,33 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description={{ item.description | d(item.name) }}
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+LimitNOFILE={{ item.max_open_files | d('65536') }}
+LimitNPROC={{ item.max_threads | d('65536') }}
+
+User={{ item.run_user | d(exporters_run_user) }}
+EnvironmentFile=-/etc/default/{{ item.name }}
+# WorkingDirectory={{ item.data_dir | d('/tmp') }}
+PrivateTmp=true
+
+ExecStart={{ item.bin_dir | d(exporters_bin_dir) }}/{{ item.name }} $OPTIONS
+ExecReload=/bin/kill -SIGHUP $MAINPID
+
+StandardOutput=journal
+StandardError=inherit
+
+Restart=always
+RestartSec=3
+TimeoutSec=300
+# Disable timeout logic and wait until process is stopped
+TimeoutStopSec=0
+KillSignal=SIGTERM
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,2 @@
+# {{ ansible_managed }}
+OPTIONS="--collector.tcpstat --collector.systemd  --collector.diskstats.ignored-devices="^(ram|loop|fd|sr)\\d+$"  --collector.filesystem.ignored-mount-points="^/(sys|proc|dev|systemd|udev|none|snap)($|/)" --collector.filesystem.ignored-fs-types="^(sys|proc|auto|tmp|debug|squash)fs$""

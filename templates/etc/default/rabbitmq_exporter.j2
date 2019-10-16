@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+# Options for systemd unit
+OPTIONS=""
+
+# Options for rabbitmq_exporter metrics
+RABBIT_USER="{{ rabbitmq_exporter_username }}"
+RABBIT_PASSWORD="{{ rabbitmq_exporter_password }}"
+SKIP_QUEUES="{{ rabbitmq_exporter_skip_queues }}"
+
+PUBLISH_PORT={{ item.port }}

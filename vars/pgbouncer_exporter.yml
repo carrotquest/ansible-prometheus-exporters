@@ -1,0 +1,13 @@
+---
+## PGBouncer Exporter
+exporter:
+- name: pgbouncer_exporter
+  description: 'Pgbouncer metrics exporter for Prometheus'
+  alias: pgbouncer-exporter
+  run_user: postgres
+  repo: https://github.com/jbub/pgbouncer_exporter
+  package: pgbouncer_exporter_0.4.0_linux_amd64
+  single: yes
+  version: 0.4.0
+  platform: linux_amd64
+  port: 9127

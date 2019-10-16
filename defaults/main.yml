@@ -1,0 +1,38 @@
+---
+# defaults file for ansible-prometheus-exporters
+consul_host: 127.0.0.1
+consul_path: '/opt/consul/conf.d'
+exporters_consul_enabled: no
+
+exporters_services_list: []
+
+exporters_tmp_dir: '/tmp/prometheus_exporters'
+exporters_bin_dir: '/usr/local/sbin'
+exporters_run_user: 'prometheus'
+
+default_exporters:
+- name: node_exporter
+  description: 'Machine metrics exporter for Prometheus'
+  alias: node-exporter
+  repo: https://github.com/prometheus/node_exporter
+  version: 0.18.0
+  platform: linux-amd64
+  port: 9100
+
+## Exporters config default vars
+
+## PostgreSQL Exporter
+postgres_exporter_username: 'postgres'
+
+## PGBouncer Exporter
+pgbouncer_exporter_username: 'postgres'
+
+## RabbitMQ Exporter
+rabbitmq_exporter_username: 'guest'
+rabbitmq_exporter_password: 'guest'
+rabbitmq_exporter_skip_queues: ''
+
+## Redis Exporter
+redis_exporter_addr: '127.0.0.1:6379'
+redis_exporter_alias: 'main'
+redis_exporter_password: 'p@ssword'

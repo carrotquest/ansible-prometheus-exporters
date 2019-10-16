@@ -1,0 +1,70 @@
+---
+# tasks file for ansible-prometheus-exporters
+
+- name: exporters | Combine list of exporters
+  block:
+  - name: exporters | Combine list of exporters | Select exporters from var files
+    include_vars:
+      name: "{{ item }}"
+      dir: "vars"
+      files_matching: "{{ item }}"
+      extensions:
+        - yml
+        - yaml
+    with_items:
+      - "{{ exporters_services_list }}"
+    when:
+      - exporters_services_list is defined
+  
+  - name: exporters | Combine list of exporters | Create default 'exporters'
+    set_fact:
+      exporters: "{{ default_exporters }}"
+
+  - name: exporters | Combine list of exporters | Add selected to list 'exporters'
+    set_fact:
+      exporters: "{{ exporters }} + {{ vars[item].exporter }}"
+    with_items:
+      - "{{ exporters_services_list }}"
+    when:
+      - exporters_services_list is defined
+
+- debug:
+    var: exporters
+
+- name: exporters | Create user
+  user:
+    name: "{{ exporters_run_user }}"
+    shell: /usr/sbin/nologin
+    home: /nonexistent
+    create_home: no
+    state: present
+
+- name: exporters | Download binaries
+  include_tasks: download.yml
+  with_items:
+    - "{{ exporters }}"
+
+- name: exporters | Clean tmp dir
+  file:
+    path: "{{ exporters_tmp_dir }}"
+    state: absent
+
+- name: exporters | Create env and yml config files
+  include_tasks: config.yml
+  with_items:
+    - "{{ exporters }}"
+
+- name: exporters | Setup systemd units
+  include_tasks: systemd.yml
+  with_items:
+    - "{{ exporters }}"
+  when:
+    - ansible_service_mgr == 'systemd'
+
+- name: exporters | register with consul service
+  include_tasks: consul.yml
+  with_items:
+    - "{{ exporters }}"
+  when:
+    - exporters_consul_enabled is defined
+    - exporters_consul_enabled | bool

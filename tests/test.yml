@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - role: ansible-prometheus-exporters
+      vars:
+        services_list:
+          - elasticsearch
+          - pgbouncer
+          - postgres
+          - rabbitmq
+          - redis

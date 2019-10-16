@@ -1,0 +1,22 @@
+---
+- name: exporters | config | Copy default env file
+  template:
+    src: "etc/default/{{ item.name }}.j2"
+    dest: "/etc/default/{{ item.name }}"
+    mode: 644
+    owner: root
+  when:
+    - (role_path + '/templates/etc/default/' + item.name + '.j2') is is_file
+  notify:
+    - restart exporters
+
+- name: exporters | config | Copy default yml file
+  template:
+    src: "etc/default/{{ item.name }}.yml.j2"
+    dest: "/etc/default/{{ item.name }}.yml"
+    mode: 644
+    owner: root
+  when:
+    - (role_path + '/templates/etc/default/' + item.name + '.yml.j2') is is_file
+  notify:
+    - restart exporters

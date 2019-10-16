@@ -1,0 +1,12 @@
+---
+## PostgreSQL Exporter
+exporter:
+- name: postgres_exporter
+  description: 'PostgresSQL metric exporter for Prometheus'
+  alias: postgres-exporter
+  run_user: postgres
+  repo: https://github.com/wrouesnel/postgres_exporter
+  package: postgres_exporter_v0.4.7_linux-amd64
+  version: 0.4.7
+  platform: linux-amd64
+  port: 9187

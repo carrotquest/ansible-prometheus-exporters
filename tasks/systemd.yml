@@ -1,0 +1,13 @@
+---
+- name: exporters | systemd | Copy systemd config
+  template:
+    src: etc/systemd/system/exporter.service.j2
+    dest: "/etc/systemd/system/{{ item.name }}.service"
+    backup: no
+    owner: root
+  notify:
+    - restart exporters
+
+# - name: exporters | systemd | Reload systemd config
+#   systemd:
+#     daemon_reload: yes

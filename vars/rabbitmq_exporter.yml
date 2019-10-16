@@ -1,0 +1,9 @@
+---
+## RabbitMQ Exporter
+exporter:
+- name: rabbitmq_exporter
+  alias: rabbitmq-exporter
+  repo: https://github.com/kbudde/rabbitmq_exporter
+  version: 0.29.0
+  platform: linux-amd64
+  port: 9419

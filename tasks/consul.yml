@@ -1,0 +1,10 @@
+---
+- name: exporters | consul | Create consul config and restart
+  template:
+    src: consul_template.j2
+    dest: "{{ consul_path }}/{{ item.name }}-{{ ansible_hostname }}.json"
+    owner: root
+    backup: no
+  delegate_to: "{{ consul_host }}"
+  notify:
+    - restart consul
