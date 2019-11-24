@@ -1,10 +1,10 @@
 {
- "service": 
+  "service":
   {
-   "id": "{% if item.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ item.alias }}-{{ ansible_hostname }}{% endif %}",
-   "name": "{{ item.alias }}",
-   "address": "{{ ansible_host }}",
-   "tags": ["{{ ansible_hostname }}"],
-   "port": {{ item.port }}
+    "id": "{% if item.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ item.alias }}-{{ ansible_hostname }}{% endif %}",
+    "name": "{{ item.alias }}",
+    "address": "{{ ansible_host }}",
+    "tags": ["{{ ansible_hostname }}"],
+    "port": {{ item.port }}
   }
 }

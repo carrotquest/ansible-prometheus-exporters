@@ -1,5 +1,4 @@
-# {{ ansible_managed }}
-
+{{ ansible_managed | comment }}
 [Unit]
 Description={{ item.description | d(item.name) }}
 Wants=network-online.target
