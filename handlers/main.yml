@@ -9,8 +9,8 @@
 - name: restart exporters
   systemd:
     service: "{{ item.name }}.service"
-    enabled: yes
+    daemon_reload: true
+    enabled: true
     state: restarted
-    daemon_reload: yes
   with_items:
     - "{{ exporters }}"
