@@ -3,30 +3,30 @@
 
 - name: exporters | Combine list of exporters
   block:
-  - name: exporters | Combine list of exporters | Select exporters from var files
-    include_vars:
-      name: "{{ item }}"
-      dir: "vars"
-      files_matching: "{{ item }}"
-      extensions:
-        - yml
-        - yaml
-    with_items:
-      - "{{ exporters_services_list }}"
-    when:
-      - exporters_services_list is defined
-  
-  - name: exporters | Combine list of exporters | Create default 'exporters'
-    set_fact:
-      exporters: "{{ default_exporters }}"
+    - name: exporters | Combine list of exporters | Select exporters from var files
+      include_vars:
+        name: "{{ item }}"
+        dir: "vars"
+        files_matching: "{{ item }}"
+        extensions:
+          - yml
+          - yaml
+      with_items:
+        - "{{ exporters_services_list }}"
+      when:
+        - exporters_services_list is defined
 
-  - name: exporters | Combine list of exporters | Add selected to list 'exporters'
-    set_fact:
-      exporters: "{{ exporters }} + {{ vars[item].exporter }}"
-    with_items:
-      - "{{ exporters_services_list }}"
-    when:
-      - exporters_services_list is defined
+    - name: exporters | Combine list of exporters | Create default 'exporters'
+      set_fact:
+        exporters: "{{ default_exporters }}"
+
+    - name: exporters | Combine list of exporters | Add selected to list 'exporters'
+      set_fact:
+        exporters: "{{ exporters }} + {{ vars[item].exporter }}"
+      with_items:
+        - "{{ exporters_services_list }}"
+      when:
+        - exporters_services_list is defined
 
 - debug:
     var: exporters
