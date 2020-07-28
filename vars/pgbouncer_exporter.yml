@@ -6,8 +6,8 @@ exporter:
   alias: pgbouncer-exporter
   run_user: postgres
   repo: https://github.com/jbub/pgbouncer_exporter
-  package: pgbouncer_exporter_0.4.0_linux_amd64
+  package: pgbouncer_exporter_0.5.0_linux_amd64
   single: yes
-  version: 0.4.0
+  version: 0.5.0
   platform: linux_amd64
   port: 9127

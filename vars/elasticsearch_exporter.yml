@@ -3,6 +3,6 @@ exporter:
 - name: elasticsearch_exporter
   alias: elasticsearch-exporter
   repo: https://github.com/justwatchcom/elasticsearch_exporter
-  version: 1.0.2
+  version: 1.1.0
   platform: linux-amd64
   port: 9114

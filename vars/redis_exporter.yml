@@ -4,8 +4,8 @@ exporter:
 - name: redis_exporter
   alias: redis-exporter
   repo: https://github.com/oliver006/redis_exporter
-  package: redis_exporter-v0.34.1.linux-amd64
+  package: redis_exporter-v1.5.2.linux-amd64
   single: yes
-  version: 0.34.1
+  version: 1.5.2
   platform: linux-amd64
   port: 9121

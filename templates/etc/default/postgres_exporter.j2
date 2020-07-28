@@ -1,3 +1,6 @@
 {{ ansible_managed | comment }}
 DATA_SOURCE_NAME="user={{ postgres_exporter_username }} host=/var/run/postgresql/ sslmode=disable"
-OPTIONS="--extend.query-path=/etc/default/postgres_exporter.yml"
+OPTIONS="--log.level=info"
+PG_EXPORTER_DISABLE_SETTINGS_METRICS=false
+PG_EXPORTER_AUTO_DISCOVER_DATABASES=false
+PG_EXPORTER_EXTEND_QUERY_PATH=/etc/default/postgres_exporter.yml
