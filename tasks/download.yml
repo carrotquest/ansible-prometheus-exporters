@@ -2,7 +2,8 @@
 - name: exporters | download | Check installed
   stat:
     path: "{{ item.bin_dir | d(exporters_bin_dir) }}/{{ item.name }}"
-  changed_when: no
+  changed_when: false
+  check_mode: false
   register: current_exporter_binary
 
 - name: exporters | download | Check version
@@ -11,7 +12,8 @@
   args:
     executable: /bin/bash
   register: current_exporter_binary_version
-  changed_when: no
+  changed_when: false
+  check_mode: false
   when:
     - current_exporter_binary.stat.exists
 
