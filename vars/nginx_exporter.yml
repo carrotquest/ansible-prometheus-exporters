@@ -4,7 +4,7 @@ exporter:
   description: 'NGINX metrics exporter for Prometheus'
   alias: nginx-exporter
   repo: https://github.com/nginxinc/nginx-prometheus-exporter
-  package: nginx-prometheus-exporter-0.8.0-linux-amd64.tar.gz
+  package: nginx-prometheus-exporter-0.8.0-linux-amd64
   version: 0.8.0
   platform: linux-amd64
   port: 9113
