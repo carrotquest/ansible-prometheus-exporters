@@ -1,0 +1,9 @@
+---
+exporter:
+- name: json_exporter
+  description: 'JSON metrics exporter for Prometheus'
+  alias: json-exporter
+  repo: https://github.com/prometheus-community/json_exporter
+  version: 0.1.0
+  platform: linux-amd64
+  port: 7979

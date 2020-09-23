@@ -16,6 +16,7 @@ Download, setup and run various Prometheus exporters as systemd unit for VM and 
 - [rabbitmq_exporter](https://github.com/kbudde/rabbitmq_exporter)
 - [redis_exporter](https://github.com/oliver006/redis_exporter)
 - [nginx_exporter](https://github.com/nginxinc/nginx-prometheus-exporter)
+- [json_exporter](https://github.com/prometheus-community/json_exporter)
 
 
 ### Template for sample_exporter

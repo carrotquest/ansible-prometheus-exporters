@@ -1,0 +1,22 @@
+{{ ansible_managed | comment }}
+{% for item in json_exporter_config %}
+- name: {{ item.name }}
+{% if 'path' in item %}
+  path: {{ item.path }}
+{% endif %}
+{% if 'type' in item %}
+  type: {{ item.type }}
+{% endif %}
+{% if 'labels' in item %}
+  labels:
+{% for label, val in item.labels.items() %}
+    {{ label }}: {{ val }}
+{% endfor %}
+{% endif %}
+{% if 'values' in item %}
+  values:
+{% for name, val in item.values.items() %}
+    {{ name }}: {{ val }}
+{% endfor %}
+{% endif %}
+{% endfor %}
