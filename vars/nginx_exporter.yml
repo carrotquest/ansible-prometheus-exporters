@@ -5,6 +5,7 @@ exporter:
   alias: nginx-exporter
   repo: https://github.com/nginxinc/nginx-prometheus-exporter
   package: nginx-prometheus-exporter-0.8.0-linux-amd64
+  binary_path: nginx-prometheus-exporter
   version: 0.8.0
   single: true
   platform: linux-amd64

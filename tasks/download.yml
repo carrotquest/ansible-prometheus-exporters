@@ -41,10 +41,18 @@
     - item.package is defined
     - not current_exporter_binary.stat.exists or (current_exporter_binary_version.stdout and current_exporter_binary_version.stdout is version(item.version, '<'))
 
+- name: exporters | download | downloaded binary set directly
+  set_fact:
+    current_exporter_download_binary: "{{ item.binary_path }}"
+  when:
+    - item.binary_path is defined
+    - not current_exporter_binary.stat.exists or current_exporter_binary_version.stdout is version(item.version, '!=')
+
 - name: exporters | download | downloaded binary w/o package name
   set_fact:
     current_exporter_download_binary: "{{ item.name }}-{{ item.version }}.{{ item.platform }}/{{ item.name }}"
   when:
+    - item.binary_path is not defined
     - item.package is not defined
     - item.single is not defined or not item.single | bool
     - not current_exporter_binary.stat.exists or current_exporter_binary_version.stdout is version(item.version, '!=')
@@ -53,23 +61,16 @@
   set_fact:
     current_exporter_download_binary: "{{ item.package }}/{{ item.name }}"
   when:
+    - item.binary_path is not defined
     - item.package is defined
     - item.single is not defined or not item.single | bool
     - not current_exporter_binary.stat.exists or current_exporter_binary_version.stdout is version(item.version, '!=')
 
-- name: exporters | download | downloaded binary w/o package name and single file
+- name: exporters | download | downloaded binary single file
   set_fact:
     current_exporter_download_binary: "{{ item.name }}"
   when:
-    - item.package is not defined
-    - item.single is defined and item.single | bool
-    - not current_exporter_binary.stat.exists or current_exporter_binary_version.stdout is version(item.version, '!=')
-
-- name: exporters | download | downloaded binary with package name and single file
-  set_fact:
-    current_exporter_download_binary: "{{ item.name }}"
-  when:
-    - item.package is defined
+    - item.binary_path is not defined
     - item.single is defined and item.single | bool
     - not current_exporter_binary.stat.exists or current_exporter_binary_version.stdout is version(item.version, '!=')
 
