@@ -15,6 +15,8 @@ Download, setup and run various Prometheus exporters as systemd unit for VM and 
 - [postgres_exporter](https://github.com/wrouesnel/postgres_exporter)
 - [rabbitmq_exporter](https://github.com/kbudde/rabbitmq_exporter)
 - [redis_exporter](https://github.com/oliver006/redis_exporter)
+- [nginx_exporter](https://github.com/nginxinc/nginx-prometheus-exporter)
+
 
 ### Template for sample_exporter
 
@@ -81,6 +83,7 @@ default_exporters:
           - postgres
           - rabbitmq
           - redis
+          - nginx
 ```
 
 ## License

@@ -10,3 +10,4 @@
           - postgres
           - rabbitmq
           - redis
+          - nginx
