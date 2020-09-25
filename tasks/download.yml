@@ -43,7 +43,7 @@
     current_exporter_download_url: "{{ item.repo }}/releases/download/v{{ item.version }}/{{ item.package }}.tar.gz"
   when:
     - item.package is defined
-    - not current_exporter_binary_version or current_exporter_binary_version.stdout is version(item.version, '<')
+    - not current_exporter_binary_version or current_exporter_binary_version is version(item.version, '<')
 
 - name: exporters | download | downloaded binary set directly
   set_fact:
