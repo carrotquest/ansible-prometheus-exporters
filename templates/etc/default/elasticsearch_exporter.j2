@@ -1,2 +1,2 @@
 {{ ansible_managed | comment }}
-OPTIONS="--web.listen-address=:{{ item.port }} --es.indices=true"
+OPTIONS="--web.listen-address={{ ansible_host }}:{{ item.port }} --es.indices=true"
