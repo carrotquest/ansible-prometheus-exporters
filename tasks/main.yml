@@ -68,3 +68,8 @@
   when:
     - exporters_consul_enabled is defined
     - exporters_consul_enabled | bool
+
+- name: Extended iptables rules
+  include_tasks: iptables.yml
+  with_items:
+    - "{{ exporters }}"
