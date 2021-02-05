@@ -1,8 +1,11 @@
 {{ ansible_managed | comment }}
-DATA_SOURCE_NAME="user={{ postgres_exporter_username }} host=/var/run/postgresql/ sslmode=disable"
+DATA_SOURCE_NAME="user={{ postgres_exporter_username }} {% if postgres_exporter_dbname %}dbname={{ postgres_exporter_dbname }} {% endif %}host=/var/run/postgresql/ sslmode=disable"
 OPTIONS="--log.level=info"
 PG_EXPORTER_WEB_LISTEN_ADDRESS={{ ansible_host }}:{{ item.port }}
 PG_EXPORTER_DISABLE_DEFAULT_METRICS={{ postgres_exporter_disable_default_metrics | bool | lower }}
 PG_EXPORTER_DISABLE_SETTINGS_METRICS={{ postgres_exporter_disable_system_metrics | bool | lower }}
 PG_EXPORTER_AUTO_DISCOVER_DATABASES={{ postgres_exporter_auto_discover_databases | bool | lower }}
+{% if postgres_exporter_exclude_databases %}
+PG_EXPORTER_EXCLUDE_DATABASES={{ postgres_exporter_exclude_databases | list | join(', ') }}
+{% endif %}
 PG_EXPORTER_EXTEND_QUERY_PATH=/etc/default/postgres_exporter.yml
