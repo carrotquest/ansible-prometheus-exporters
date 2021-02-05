@@ -23,6 +23,9 @@ default_exporters:
 
 ## PostgreSQL Exporter
 postgres_exporter_username: 'postgres'
+postgres_exporter_disable_default_metrics: no
+postgres_exporter_disable_system_metrics: no
+postgres_exporter_auto_discover_databases: yes
 
 ## PGBouncer Exporter
 pgbouncer_exporter_username: 'postgres'
