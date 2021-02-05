@@ -1,2 +1,3 @@
 {{ ansible_managed | comment }}
-OPTIONS="{{ json_exporter_src }} /etc/default/json_exporter.yml"
+# for json_exporter bind address is not allowed. Filtering on iptables
+OPTIONS="{{ json_exporter_src }} /etc/default/json_exporter.yml --port={{ item.port }}"

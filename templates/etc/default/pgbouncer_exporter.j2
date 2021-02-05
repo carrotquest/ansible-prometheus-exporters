@@ -1,2 +1,2 @@
 {{ ansible_managed | comment }}
-OPTIONS="--database-url 'postgres://{{ pgbouncer_exporter_username }}@localhost:5434/pgbouncer?sslmode=disable' server"
+OPTIONS="--web.listen-address={{ ansible_host }}:{{ item.port }} --database-url 'postgres://{{ pgbouncer_exporter_username }}@localhost:5434/pgbouncer?sslmode=disable' server"

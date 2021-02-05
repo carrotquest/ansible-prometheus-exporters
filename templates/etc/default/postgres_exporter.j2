@@ -1,6 +1,7 @@
 {{ ansible_managed | comment }}
 DATA_SOURCE_NAME="user={{ postgres_exporter_username }} host=/var/run/postgresql/ sslmode=disable"
 OPTIONS="--log.level=info"
+PG_EXPORTER_WEB_LISTEN_ADDRESS={{ ansible_host }}:{{ item.port }}
 PG_EXPORTER_DISABLE_DEFAULT_METRICS={{ postgres_exporter_disable_default_metrics | bool | lower }}
 PG_EXPORTER_DISABLE_SETTINGS_METRICS={{ postgres_exporter_disable_system_metrics | bool | lower }}
 PG_EXPORTER_AUTO_DISCOVER_DATABASES={{ postgres_exporter_auto_discover_databases | bool | lower }}

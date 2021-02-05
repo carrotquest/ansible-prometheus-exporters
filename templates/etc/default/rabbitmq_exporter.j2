@@ -8,3 +8,4 @@ RABBIT_PASSWORD="{{ rabbitmq_exporter_password }}"
 SKIP_QUEUES="{{ rabbitmq_exporter_skip_queues }}"
 
 PUBLISH_PORT={{ item.port }}
+PUBLISH_ADDR={{ ansible_host }}

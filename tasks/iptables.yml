@@ -1,0 +1,36 @@
+---
+- name: Add access consul to {{ item.name }}
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    source: "{{ consul_host }}"
+    destination_port: "{{ item.port }}"
+    jump: ACCEPT
+    comment: Allow consul access to {{ item.name }}
+  register: add_consul_access
+  become: yes
+
+- name: Drop access another hosts to {{ item.name }}
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ item.port }}"
+    jump: DROP
+    comment: Drop access from all to {{ item.name }}
+  register: drop_other_access
+  become: yes
+
+- block:
+    - name: Save iptables rules to /etc/iptables.rules
+      shell: /sbin/iptables-save > /etc/iptables.rules
+
+    - name: Configure iptables-restore to /etc/rc.local
+      lineinfile:
+        path: "/etc/rc.local"
+        line: "/sbin/iptables-restore < /etc/iptables.rules"
+        state: present
+        create: yes  # if file not present
+        insertbefore: "exit 0"
+
+  when: add_consul_access.changed or drop_other_access.changed
+  become: yes
