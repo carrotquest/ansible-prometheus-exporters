@@ -99,13 +99,13 @@ pg_transaction_wraparound:
     FROM per_database_stats;
   metrics:
     - max_age:
-        usage: "COUNTER"
+        usage: "GAUGE"
         description: "Transaction age (the number of transactions from the latest frozen XID to the current transaction's XID)"
     - percent_towards_wraparound:
-        usage: "COUNTER"
+        usage: "GAUGE"
         description: "Percent towards transaction wraparound problem"
     - percent_towards_emergency_autovacuum:
-        usage: "COUNTER"
+        usage: "GAUGE"
         description: "Percent of transactions left towards emergency autovacuum to prevent wraparound"
 
 pg_postmaster:
