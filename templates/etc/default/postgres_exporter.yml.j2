@@ -80,6 +80,34 @@ pg_info_all_tables:
         usage: "COUNTER"
         description: "Number of times this table has been analyzed by the autovacuum daemon"
 
+pg_transaction_wraparound:
+  cache_seconds: 30
+  master: true
+  query:  >-
+    WITH max_age AS (
+      SELECT 2000000000 as max_old_xid, setting AS autovacuum_freeze_max_age
+      FROM pg_catalog.pg_settings
+      WHERE name = 'autovacuum_freeze_max_age'
+    ), per_database_stats AS (
+      SELECT datname, max_age.max_old_xid::int, max_age.autovacuum_freeze_max_age::int, age(db.datfrozenxid) AS db_max_age
+      FROM pg_catalog.pg_database AS db CROSS JOIN max_age AS max_age
+      WHERE db.datallowconn
+    )
+    SELECT MAX(db_max_age) AS max_age,
+      MAX(ROUND(100*(db_max_age/max_old_xid::float))) AS percent_towards_wraparound,
+      MAX(ROUND(100*(db_max_age/autovacuum_freeze_max_age::float))) AS percent_towards_emergency_autovacuum
+    FROM per_database_stats;
+  metrics:
+    - max_age:
+        usage: "COUNTER"
+        description: "Transaction age (the number of transactions from the latest frozen XID to the current transaction's XID)"
+    - percent_towards_wraparound:
+        usage: "COUNTER"
+        description: "Percent towards transaction wraparound problem"
+    - percent_towards_emergency_autovacuum:
+        usage: "COUNTER"
+        description: "Percent of transactions left towards emergency autovacuum to prevent wraparound"
+
 pg_postmaster:
   cache_seconds: 30
   master: true
