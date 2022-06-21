@@ -4,6 +4,8 @@ exporter:
 - name: rabbitmq_exporter
   alias: rabbitmq-exporter
   repo: https://github.com/kbudde/rabbitmq_exporter
-  version: 1.0.0-RC7
+  version: 1.0.0-RC16
   platform: linux-amd64
+  package: rabbitmq_exporter_1.0.0-RC16_linux_amd64
   port: 9419
+  single: yes
