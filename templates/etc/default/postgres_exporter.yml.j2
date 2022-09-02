@@ -105,6 +105,31 @@ pg_transaction_wraparound:
         usage: "GAUGE"
         description: "Percent of transactions left towards emergency autovacuum to prevent wraparound"
 
+pg_table_primary_key_overflow:
+  cache_seconds: 30
+  master: true
+  query:  >-
+    SELECT current_database() AS db_name, table_name, current_max_pk,
+      COALESCE(max_value, 2147483687) AS max_primary_key_value,
+      COALESCE(percent_left, 100) percent_towards_primary_key_overflow
+    FROM get_left_primary_keys_info();
+  metrics:
+    - db_name:
+        usage: "LABEL"
+        description: "Database name"
+    - table_name:
+        usage: "LABEL"
+        description: "Table name"
+    - current_max_pk:
+        usage: "GAUGE"
+        description: "Maximum value for primary key"
+    - max_primary_key_value:
+        usage: "GAUGE"
+        description: "Percent towards transaction wraparound problem"
+    - percent_towards_primary_key_overflow:
+        usage: "GAUGE"
+        description: "Percent of ids until its type limit"
+
 pg_postmaster:
   cache_seconds: 30
   master: true
