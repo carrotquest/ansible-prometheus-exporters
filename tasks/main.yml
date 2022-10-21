@@ -22,7 +22,7 @@
 
     - name: exporters | Combine list of exporters | Add selected to list 'exporters'
       set_fact:
-        exporters: "{{ exporters }} + {{ vars[item].exporter }}"
+        exporters: "{{ exporters + vars[item].exporter }}"
       with_items:
         - "{{ exporters_services_list }}"
       when:
