@@ -4,7 +4,7 @@ exporter:
 - name: redis_exporter
   alias: redis-exporter
   repo: https://github.com/oliver006/redis_exporter
-  package: redis_exporter-v1.5.2.linux-amd64
+  package: redis_exporter-v1.45.0.linux-amd64
   single: no
   version: 1.45.0
   platform: linux-amd64
