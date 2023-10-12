@@ -15,7 +15,7 @@ default_exporters:
   description: 'Machine metrics exporter for Prometheus'
   alias: node-exporter
   repo: https://github.com/prometheus/node_exporter
-  version: 0.18.0
+  version: 1.6.1
   platform: linux-amd64
   port: 9100
 
