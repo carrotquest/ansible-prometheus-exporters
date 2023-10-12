@@ -6,7 +6,7 @@ exporter:
   alias: postgres-exporter
   run_user: postgres
   repo: https://github.com/wrouesnel/postgres_exporter
-  package: postgres_exporter_v0.14.0_linux-amd64
+  package: postgres_exporter-0.14.0.linux-amd64
   version: 0.14.0
   platform: linux-amd64
   port: 9187
