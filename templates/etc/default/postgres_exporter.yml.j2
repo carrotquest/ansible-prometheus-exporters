@@ -14,7 +14,7 @@ pg_database:
 pg_wal:
   cache_seconds: 30
   master: true
-  query: "SELECT count(*) * 16 * 1024 * 1024 AS size_bytes FROM pg_ls_dir('pg_xlog') AS t(fname) WHERE fname <> 'archive_status';"
+  query: "SELECT count(*) * 16 * 1024 * 1024 AS size_bytes FROM pg_ls_dir('pg_wal') AS t(fname) WHERE fname <> 'archive_status';"
   metrics:
     - size_bytes:
         usage: "GAUGE"
