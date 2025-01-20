@@ -1,7 +1,7 @@
 ---
 ## Redis Exporter
-exporter:
-- name: redis_exporter
+exporter_template:
+  name: redis_exporter
   alias: redis-exporter
   repo: https://github.com/oliver006/redis_exporter
   package: redis_exporter-v1.45.0.linux-amd64
@@ -9,3 +9,10 @@ exporter:
   version: 1.45.0
   platform: linux-amd64
   port: 9121
+
+exporter: >-
+  {%- set result = [] -%}
+  {%- for exp in redis_exporters -%}
+  {{-     result.append(exporter_template | combine({"alias": exporter_template["alias"] + "-" + exp["alias"], "redis_alias": exp["alias"], "redis_port": exp["port"], "redis_host": exp["host"]})) -}}
+  {%- endfor -%}
+  {{ result | to_json | from_json }}

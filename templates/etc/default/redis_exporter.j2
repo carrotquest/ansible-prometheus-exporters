@@ -1,2 +1,2 @@
 {{ ansible_managed | comment }}
-OPTIONS="-redis.addr={{ redis_exporter_addr }} -redis.password={{ redis_exporter_password }} --web.listen-address={{ ansible_host }}:{{ item.port }}"
+OPTIONS="-redis.password={{ redis_exporter_password }} --web.listen-address={{ ansible_host }}:{{ item.port }}"
