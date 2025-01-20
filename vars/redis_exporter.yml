@@ -13,6 +13,6 @@ exporter_template:
 exporter: >-
   {%- set result = [] -%}
   {%- for exp in redis_exporters -%}
-  {{-     result.append(exporter_template | combine({"alias": exporter_template["alias"] + "-" + exp["alias"], "redis_alias": exp["alias"], "redis_port": exp["port"], "redis_host": exp["host"]})) -}}
+  {{-     result.append(exporter_template | combine({"alias": exporter_template["alias"] + "-" + exp["alias"], "redis_alias": exp["alias"], "redis_port": exp["port"], "redis_host": exp["host"], "redis_addr": exp["redis_addr"] | d("exp['host']" + ":" + exp['port']) })) -}}
   {%- endfor -%}
   {{ result | to_json | from_json }}
