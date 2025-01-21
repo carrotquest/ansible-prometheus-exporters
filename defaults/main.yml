@@ -4,20 +4,12 @@ consul_host: 127.0.0.1
 consul_path: '/opt/consul/conf.d'
 exporters_consul_enabled: no
 
-exporters_services_list: []
+exporters_services_list:
+  - node
 
 exporters_tmp_dir: '/tmp/prometheus_exporters'
 exporters_bin_dir: '/usr/local/sbin'
 exporters_run_user: 'prometheus'
-
-default_exporters:
-- name: node_exporter
-  description: 'Machine metrics exporter for Prometheus'
-  alias: node-exporter
-  repo: https://github.com/prometheus/node_exporter
-  version: 1.6.1
-  platform: linux-amd64
-  port: 9100
 
 ## Exporters config default vars
 
@@ -39,11 +31,7 @@ rabbitmq_exporter_password: 'guest'
 rabbitmq_exporter_skip_queues: ''
 
 ## Redis Exporter
-# Due to https://github.com/oliver006/redis_exporter?files=1#prometheus-configuration-to-scrape-multiple-redis-hosts
+#  Due to https://github.com/oliver006/redis_exporter?files=1#prometheus-configuration-to-scrape-multiple-redis-hosts
 #  I expect all redis instances on the same host to have the same password.
 #  It is passed via /etc/default/redis_exporter file
-redis_exporter_password: 'p@ssword'
-redis_exporters:
-  - alias: main
-    host: '127.0.0.1'
-    port: '6379'
+redis_exporter_envs:password: 'p@ssword'

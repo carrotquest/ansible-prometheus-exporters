@@ -1,7 +1,7 @@
 ---
 ## RabbitMQ Exporter
-exporter:
-- name: rabbitmq_exporter
+exporter_template:
+  name: rabbitmq_exporter
   alias: rabbitmq-exporter
   repo: https://github.com/kbudde/rabbitmq_exporter
   version: 1.0.0-RC16

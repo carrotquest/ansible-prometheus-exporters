@@ -16,17 +16,25 @@
       when:
         - exporters_services_list is defined
 
-    - name: exporters | Combine list of exporters | Create default 'exporters'
-      set_fact:
-        exporters: "{{ default_exporters }}"
-
     - name: exporters | Combine list of exporters | Add selected to list 'exporters'
       set_fact:
-        exporters: "{{ exporters + vars[item].exporter }}"
-      with_items:
-        - "{{ exporters_services_list }}"
+        exporters: >-
+            {%- set result = [] -%}
+            {%- if exporter_name + "_exporter_overrides" in vars -%}
+            {%-   for exp_override in vars[exporter_name + "_exporter_overrides"] -%}
+            {{-     result.append(vars[exporter_name].exporter_template | combine(exp_override)) -}}
+            {%-   endfor -%}
+            {%- else -%}
+            {#-    No overrides, just take template -#}
+            {{-   result.append(vars[exporter_name].exporter_template) -}}
+            {%- endif -%}
+            {{- exporters | d([]) + result -}}
+      loop: "{{ exporters_services_list }}"
+      loop_control:
+          loop_var: exporter_name
       when:
         - exporters_services_list is defined
+        - vars[exporter_name].exporter_template
 
 - debug:
     var: exporters

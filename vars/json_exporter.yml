@@ -1,6 +1,7 @@
 ---
-exporter:
-- name: json_exporter
+## JSON http exporter
+exporter_template:
+  name: json_exporter
   description: 'JSON metrics exporter for Prometheus'
   alias: json-exporter
   repo: https://github.com/prometheus-community/json_exporter

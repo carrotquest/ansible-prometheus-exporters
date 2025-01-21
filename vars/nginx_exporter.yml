@@ -1,6 +1,7 @@
 ---
-exporter:
-- name: nginx_exporter
+## NGINX exporter
+exporter_template:
+  name: nginx_exporter
   description: 'NGINX metrics exporter for Prometheus'
   alias: nginx-exporter
   repo: https://github.com/nginxinc/nginx-prometheus-exporter

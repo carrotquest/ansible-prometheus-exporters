@@ -1,0 +1,10 @@
+---
+## Basic node exporter
+exporter_template:
+  name: node_exporter
+  description: 'Machine metrics exporter for Prometheus'
+  alias: node-exporter
+  repo: https://github.com/prometheus/node_exporter
+  version: 1.6.1
+  platform: linux-amd64
+  port: 9100

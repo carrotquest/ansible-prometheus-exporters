@@ -1,7 +1,7 @@
 ---
 ## PostgreSQL Exporter
-exporter:
-- name: postgres_exporter
+exporter_template:
+  name: postgres_exporter
   description: 'PostgresSQL metric exporter for Prometheus'
   alias: postgres-exporter
   run_user: postgres

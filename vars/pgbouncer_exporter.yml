@@ -1,7 +1,7 @@
 ---
 ## PGBouncer Exporter
-exporter:
-- name: pgbouncer_exporter
+exporter_template:
+  name: pgbouncer_exporter
   description: 'Pgbouncer metrics exporter for Prometheus'
   alias: pgbouncer-exporter
   run_user: postgres

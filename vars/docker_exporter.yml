@@ -1,0 +1,5 @@
+---
+exporter_template:
+  name: docker_service
+  alias: docker-service
+  port: 9323

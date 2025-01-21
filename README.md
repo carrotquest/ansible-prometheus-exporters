@@ -24,7 +24,7 @@ Download, setup and run various Prometheus exporters as systemd unit for VM and 
 ```yaml
 ---
 ## sample_exporter
-exporter:
+exporter_list:
   ## uri default combined as: "{{ item.repo }}/releases/download/v{{ item.version }}/{{ item.name }}-{{ item.version }}.{{ item.platform }}.tar.gz"
   ## uri with package name combined as: "{{ item.repo }}/releases/download/v{{ item.version }}/{{ item.package }}.tar.gz"
   ## binary_path default combined as:
