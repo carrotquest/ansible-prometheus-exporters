@@ -34,4 +34,4 @@ rabbitmq_exporter_skip_queues: ''
 #  Due to https://github.com/oliver006/redis_exporter?files=1#prometheus-configuration-to-scrape-multiple-redis-hosts
 #  I expect all redis instances on the same host to have the same password.
 #  It is passed via /etc/default/redis_exporter file
-redis_exporter_envs:password: 'p@ssword'
+redis_exporter_password: 'p@ssword'
