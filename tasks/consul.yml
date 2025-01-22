@@ -9,6 +9,6 @@
   delegate_to: "{{ consul_host }}"
   loop: "{{ exporter.consul | d([{}]) }}"
   loop_control:
-      loop_var: consul_override
+    loop_var: consul_override
   notify:
     - restart consul

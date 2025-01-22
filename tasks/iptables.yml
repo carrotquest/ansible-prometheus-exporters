@@ -2,7 +2,7 @@
 - name: Get outdated rules for exporter {{ item.name }}
 
   # For some strange reason grep returns exit code 1 when no items are in results ( `|| /bin/true` fixes it)
-  shell: "iptables -L INPUT --line-numbers | grep {{ item.name }} ||  || /bin/true"
+  shell: "iptables -L INPUT --line-numbers | grep {{ item.name }} || /bin/true"
 
   register: old_iptables_result
   become: yes
