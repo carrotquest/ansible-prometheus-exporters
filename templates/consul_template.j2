@@ -6,6 +6,6 @@
     "address": "{{ consul_override.service.address | d(ansible_host) }}",
     "tags": {{ consul_override.service.tags | d([ansible_hostname]) }},
     "port": {{ consul_override.service.port | d(exporter.port) }},
-    "meta": {{ consul_override.service..meta | d({}) }}
+    "meta": {{ consul_override.service.meta | d({}) | to_nice_json }}
   }
 }

@@ -22,7 +22,7 @@
             {%- set result = [] -%}
             {%- if exporter_name + "_exporter_overrides" in vars -%}
             {%-   for exp_override in vars[exporter_name + "_exporter_overrides"] -%}
-            {{-     result.append(vars[exporter_name].exporter_template | combine(exp_override)) -}}
+            {{-     result.append(hostvars[inventory_hostname][exporter_name].exporter_template | combine(exp_override)) -}}
             {%-   endfor -%}
             {%- else -%}
             {#-    No overrides, just take template -#}

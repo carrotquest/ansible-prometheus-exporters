@@ -1,4 +1,24 @@
 ---
+- name: Get outdated rules for exporter {{ item.name }}
+
+  # For some strange reason grep returns exit code 1 when no items are in results (|| true fixes it)
+  shell: "iptables -L INPUT --line-numbers | grep {{ item.name }} || true"
+
+  register: old_iptables_result
+  become: yes
+
+- name: Reformat iptables stdout to rule dicts for exporter {{ item.name }}
+  set_fact:
+    iptables_rules: >-
+      {{
+        old_iptables_result.stdout_lines[2:]
+        | map("regex_replace", "\s+", " ")
+        | map('split', ' ', 8)
+        | map('zip', ['num', 'target', 'protocol', 'opt', 'source', 'destination', 'destination_protocol', 'destination_port', 'comment'])
+        | map('map', 'reverse')
+        | map('community.general.dict')
+      }}
+
 - name: Add access consul to {{ item.name }}
   iptables:
     chain: INPUT
@@ -9,6 +29,18 @@
     comment: Allow consul access to {{ item.name }}
   register: add_consul_access
   become: yes
+
+# If new ACCEPT rule has been added, all previous rules should be removed:
+#   + DROP rule must be set after new ACCEPT rule
+#   + Outdated ACCEPT should be removed if present, something has changed there
+# ACCEPT rule has been appended after all previous rules, so iptables_rules indices are still valid
+# We will start removal from biggest indices, so removal will not affect iptables_rules num we want to remove
+- name: Remove outdated rules for exporter {{ item.name }}
+  shell: "iptables -D INPUT {{ rule.num }}"
+  loop: "{{ iptables_rules | sort(attribute='num') | reverse }}"
+  loop_control:
+    loop_var: rule
+  when: add_consul_access.changed
 
 - name: Drop access another hosts to {{ item.name }}
   iptables:
