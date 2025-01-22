@@ -6,6 +6,7 @@
 
   register: old_iptables_result
   become: yes
+  changed: false
 
 - name: Reformat iptables stdout to rule dicts for exporter {{ item.name }}
   set_fact:
