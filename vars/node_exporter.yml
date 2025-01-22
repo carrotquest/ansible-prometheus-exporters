@@ -8,3 +8,9 @@ exporter_template:
   version: 1.6.1
   platform: linux-amd64
   port: 9100
+
+  # For some (I think, historic) reason, consul files for node exporter have no `{{ item.alias }}-` prefix
+  # NOTE variables, imported through include_vars don't support jinja. As a result, there's a hack in consul_template.j2
+  # consul:
+  #  - service:
+  #      id: "{{ ansible_hostname }}"

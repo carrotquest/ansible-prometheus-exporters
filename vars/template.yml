@@ -19,7 +19,14 @@ exporter_template:
   platform:       # linux-amd64
   port:           # 9XXX
 
-
-# exporter_template values can be overridden in  <exporter-name>_exporter_overrides variable.
-# It must be a list of dicts which extend exporter_template
-required_overrides: []
+  # You can also override consul attributes or create multiple consul configs
+  # Here you can see values, which are used by default
+  # consul:
+  #  - file: "{{ exporter.name }}-{{ ansible_hostname }}.json"
+  #    service:
+  #      id: "{{ exporter.alias }}-{{ ansible_hostname }}"
+  #      name: "{{ exporter.alias }}"
+  #      address: "{{ ansible_host }}"
+  #      port: 9121
+  #      tags: "{{ [ansible_hostname] }}"
+  #      meta: {}

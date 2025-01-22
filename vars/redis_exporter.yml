@@ -9,7 +9,17 @@ exporter_template:
   version: 1.45.0
   platform: linux-amd64
   port: 9121
-  redis_alias: "main"
-  redis_host: "127.0.0.1"
-  redis_port: 6379
-  redis_addr: "127.0.0.1:6379"
+
+  # If there are many instances of Redis on the same server, there can be just one exporter to rule them all
+  #  In this case multiple consul configs should be created, describing what targets to monitor via meta
+  #  * redis_alias is name, seen as Alias in Grafana. Just mnemonic readable name.
+  #  * redis_host, redis_port - host and port where Redis instance (not exporter) is listening.
+  #  * redis_addr - Redis address used as target.
+  #    It can differ from `host:port` pair, if you use UNIX socket on which Redis listens
+  consul:
+    - service:
+        meta:
+          redis_alias: "main"
+          redis_host: "127.0.0.1"
+          redis_port: 6379
+          redis_addr: "127.0.0.1:6379"
