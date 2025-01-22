@@ -1,11 +1,11 @@
 {
   "service":
   {
-    "id": "{% if item.consul.service.id is defined %}{{ item.consul.service.id }}{% elif item.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ item.alias }}-{{ ansible_hostname }}{% endif %}",
-    "name": "{{ item.consul.service.name | d(item.alias) }}",
-    "address": "{{ item.consul.service.address | d(ansible_host) }}",
-    "tags": {{ item.consul.service.tags | d([ansible_hostname]) }},
-    "port": {{ item.consul.service.port | d(item.port) }},
-    "meta": {{ item.consul.service.name | d({}) }}
+    "id": "{% if consul_override.service.id is defined %}{{ consul_override.service.id }}{% elif exporter.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ exporter.alias }}-{{ ansible_hostname }}{% endif %}",
+    "name": "{{ consul_override.service.name | d(exporter.alias) }}",
+    "address": "{{ consul_override.service.address | d(ansible_host) }}",
+    "tags": {{ consul_override.service.tags | d([ansible_hostname]) }},
+    "port": {{ consul_override.service.port | d(exporter.port) }},
+    "meta": {{ consul_override.service..meta | d({}) }}
   }
 }

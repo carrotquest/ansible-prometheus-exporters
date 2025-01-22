@@ -71,8 +71,9 @@
 
 - name: exporters | register with consul service
   include_tasks: consul.yml
-  with_items:
-    - "{{ exporters }}"
+  loop: "{{ exporters }}"
+  loop_control:
+      loop_var: exporter
   when:
     - exporters_consul_enabled is defined
     - exporters_consul_enabled | bool

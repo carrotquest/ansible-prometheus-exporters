@@ -2,10 +2,13 @@
 - name: exporters | consul | Create consul config and restart
   template:
     src: consul_template.j2
-    dest: "{{ consul_path }}/{{ item.consul.file | d(item.name + '-' + ansible_hostname + '.json') }}"
+    dest: "{{ consul_path }}/{{ consul_override.file | d(exporter.name + '-' + ansible_hostname + '.json') }}"
     owner: root
     mode: 0644
     backup: no
   delegate_to: "{{ consul_host }}"
+  loop: "{{ exporter.consul | d([{}]) }}"
+  loop_control:
+      loop_var: consul_override
   notify:
     - restart consul
