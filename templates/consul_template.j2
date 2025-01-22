@@ -4,8 +4,8 @@
     "id": "{% if consul_override.service.id is defined %}{{ consul_override.service.id }}{% elif exporter.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ exporter.alias }}-{{ ansible_hostname }}{% endif %}",
     "name": "{{ consul_override.service.name | d(exporter.alias) }}",
     "address": "{{ consul_override.service.address | d(ansible_host) }}",
-    "tags": {{ consul_override.service.tags | d([ansible_hostname]) }},
-    "port": {{ consul_override.service.port | d(exporter.port) }},
+    "tags": {{ consul_override.service.tags | d([ansible_hostname]) | to_json }},
+    "port": {{ consul_override.service.port | d(exporter.port)  }},
     "meta": {{ consul_override.service.meta | d({}) | to_nice_json }}
   }
 }

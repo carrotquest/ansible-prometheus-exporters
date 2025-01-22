@@ -12,7 +12,7 @@
   set_fact:
     iptables_rules: >-
       {{
-        old_iptables_result.stdout_lines[2:]
+        old_iptables_result.stdout_lines
         | map("regex_replace", "\s+", " ")
         | map('split', ' ', 8)
         | map('zip', ['num', 'target', 'protocol', 'opt', 'source', 'destination', 'destination_protocol', 'destination_port', 'comment'])
