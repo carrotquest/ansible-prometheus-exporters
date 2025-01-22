@@ -1,7 +1,7 @@
 {
   "service":
   {
-    "id": "{% if item.consul.service.id %}{{ item.consul.service.id }}{% elif item.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ item.alias }}-{{ ansible_hostname }}{% endif %}",
+    "id": "{% if item.consul.service.id is defined %}{{ item.consul.service.id }}{% elif item.name == 'node_exporter' %}{{ ansible_hostname }}{% else %}{{ item.alias }}-{{ ansible_hostname }}{% endif %}",
     "name": "{{ item.consul.service.name | d(item.alias) }}",
     "address": "{{ item.consul.service.address | d(ansible_host) }}",
     "tags": {{ item.consul.service.tags | d([ansible_hostname]) }},
