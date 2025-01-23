@@ -20,6 +20,14 @@
         | map('community.general.dict')
       }}
 
+# If there are more rules than expected - remove them
+- name: Remove unexpected rules for exporter {{ item.name }}
+  shell: "iptables -D INPUT {{ rule.num }}"
+  loop: "{{ iptables_rules | sort(attribute='num') | reverse }}"
+  loop_control:
+    loop_var: rule
+  when: len(iptables_rules) > 2
+
 - name: Add access consul to {{ item.name }}
   iptables:
     chain: INPUT
@@ -41,7 +49,7 @@
   loop: "{{ iptables_rules | sort(attribute='num') | reverse }}"
   loop_control:
     loop_var: rule
-  when: add_consul_access.changed
+  when: add_consul_access.changed and not len(iptables_rules) <= 2
 
 - name: Drop access another hosts to {{ item.name }}
   iptables:
