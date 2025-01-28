@@ -8,6 +8,11 @@
   notify:
     - restart exporters
 
+- name: exporters | systemd | Enable systemd auto boot
+  systemd:
+    service: "{{ item.name }}.service"
+    enabled: true
+
 # - name: exporters | systemd | Reload systemd config
 #   systemd:
 #     daemon_reload: yes
